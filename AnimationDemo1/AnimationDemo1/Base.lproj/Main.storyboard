@@ -23,26 +23,28 @@
                                     <action selector="progressTouched:" destination="BYZ-38-t0r" eventType="valueChanged" id="G5v-Xv-HNr"/>
                                 </connections>
                             </slider>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzX-vy-PaL">
-                                <rect key="frame" x="270" y="422" width="60" height="60"/>
-                                <color key="backgroundColor" red="0.20703727006912231" green="0.94740515947341919" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUh-Hh-vxy">
+                                <rect key="frame" x="20" y="486" width="560" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="RJo-so-e1V"/>
-                                    <constraint firstAttribute="height" constant="60" id="hLT-B7-u6K"/>
+                                    <constraint firstAttribute="height" constant="21" id="W9y-fz-S4O"/>
                                 </constraints>
-                            </view>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WzV-YJ-gdL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="7DZ-lt-1Lh"/>
-                            <constraint firstItem="WzV-YJ-gdL" firstAttribute="top" secondItem="HzX-vy-PaL" secondAttribute="bottom" constant="38" id="Cp2-mG-8Fd"/>
-                            <constraint firstItem="HzX-vy-PaL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YMo-kg-Q5S"/>
+                            <constraint firstAttribute="trailing" secondItem="XUh-Hh-vxy" secondAttribute="trailing" constant="20" id="QrA-4N-ZA4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WzV-YJ-gdL" secondAttribute="bottom" constant="50" id="gxH-Nm-CBf"/>
+                            <constraint firstItem="WzV-YJ-gdL" firstAttribute="top" secondItem="XUh-Hh-vxy" secondAttribute="bottom" constant="13" id="kAA-C5-yUl"/>
+                            <constraint firstItem="XUh-Hh-vxy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="vq7-ea-0cp"/>
                             <constraint firstAttribute="trailing" secondItem="WzV-YJ-gdL" secondAttribute="trailing" constant="30" id="wii-cg-Dit"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backView" destination="HzX-vy-PaL" id="KEn-uX-TEf"/>
+                        <outlet property="showNumberLabel" destination="XUh-Hh-vxy" id="MSg-u4-6mU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

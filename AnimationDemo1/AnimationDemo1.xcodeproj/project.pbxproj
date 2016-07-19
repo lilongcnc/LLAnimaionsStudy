@@ -15,8 +15,8 @@
 		89CD72711D3CC5DE00BF91CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89CD726F1D3CC5DE00BF91CF /* LaunchScreen.storyboard */; };
 		89CD727C1D3CC5DE00BF91CF /* AnimationDemo1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CD727B1D3CC5DE00BF91CF /* AnimationDemo1Tests.m */; };
 		89CD72871D3CC5DE00BF91CF /* AnimationDemo1UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CD72861D3CC5DE00BF91CF /* AnimationDemo1UITests.m */; };
-		89CD72961D3CCD6600BF91CF /* drawRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CD72951D3CCD6600BF91CF /* drawRectView.m */; };
-		89CD72991D3CCE8600BF91CF /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CD72981D3CCE8600BF91CF /* UIView+Frame.m */; };
+		89FE3E3D1D3E01790054EB34 /* CircleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE3E3C1D3E01790054EB34 /* CircleLayer.m */; };
+		89FE3E411D3E067E0054EB34 /* LLCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE3E401D3E067E0054EB34 /* LLCircleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,10 +53,10 @@
 		89CD72821D3CC5DE00BF91CF /* AnimationDemo1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimationDemo1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89CD72861D3CC5DE00BF91CF /* AnimationDemo1UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationDemo1UITests.m; sourceTree = "<group>"; };
 		89CD72881D3CC5DE00BF91CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89CD72941D3CCD6600BF91CF /* drawRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = drawRectView.h; sourceTree = "<group>"; };
-		89CD72951D3CCD6600BF91CF /* drawRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = drawRectView.m; sourceTree = "<group>"; };
-		89CD72971D3CCE8600BF91CF /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
-		89CD72981D3CCE8600BF91CF /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		89FE3E3B1D3E01790054EB34 /* CircleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleLayer.h; sourceTree = "<group>"; };
+		89FE3E3C1D3E01790054EB34 /* CircleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleLayer.m; sourceTree = "<group>"; };
+		89FE3E3F1D3E067E0054EB34 /* LLCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLCircleView.h; sourceTree = "<group>"; };
+		89FE3E401D3E067E0054EB34 /* LLCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLCircleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,18 +107,15 @@
 		89CD72601D3CC5DE00BF91CF /* AnimationDemo1 */ = {
 			isa = PBXGroup;
 			children = (
-				89CD72971D3CCE8600BF91CF /* UIView+Frame.h */,
-				89CD72981D3CCE8600BF91CF /* UIView+Frame.m */,
-				89CD72641D3CC5DE00BF91CF /* AppDelegate.h */,
-				89CD72651D3CC5DE00BF91CF /* AppDelegate.m */,
+				89FE3E3E1D3E017E0054EB34 /* CircleView */,
 				89CD72671D3CC5DE00BF91CF /* ViewController.h */,
 				89CD72681D3CC5DE00BF91CF /* ViewController.m */,
-				89CD72941D3CCD6600BF91CF /* drawRectView.h */,
-				89CD72951D3CCD6600BF91CF /* drawRectView.m */,
 				89CD726A1D3CC5DE00BF91CF /* Main.storyboard */,
 				89CD726D1D3CC5DE00BF91CF /* Assets.xcassets */,
 				89CD726F1D3CC5DE00BF91CF /* LaunchScreen.storyboard */,
 				89CD72721D3CC5DE00BF91CF /* Info.plist */,
+				89CD72641D3CC5DE00BF91CF /* AppDelegate.h */,
+				89CD72651D3CC5DE00BF91CF /* AppDelegate.m */,
 				89CD72611D3CC5DE00BF91CF /* Supporting Files */,
 			);
 			path = AnimationDemo1;
@@ -148,6 +145,17 @@
 				89CD72881D3CC5DE00BF91CF /* Info.plist */,
 			);
 			path = AnimationDemo1UITests;
+			sourceTree = "<group>";
+		};
+		89FE3E3E1D3E017E0054EB34 /* CircleView */ = {
+			isa = PBXGroup;
+			children = (
+				89FE3E3F1D3E067E0054EB34 /* LLCircleView.h */,
+				89FE3E401D3E067E0054EB34 /* LLCircleView.m */,
+				89FE3E3B1D3E01790054EB34 /* CircleLayer.h */,
+				89FE3E3C1D3E01790054EB34 /* CircleLayer.m */,
+			);
+			name = CircleView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,10 +288,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89CD72961D3CCD6600BF91CF /* drawRectView.m in Sources */,
 				89CD72691D3CC5DE00BF91CF /* ViewController.m in Sources */,
 				89CD72661D3CC5DE00BF91CF /* AppDelegate.m in Sources */,
-				89CD72991D3CCE8600BF91CF /* UIView+Frame.m in Sources */,
+				89FE3E3D1D3E01790054EB34 /* CircleLayer.m in Sources */,
+				89FE3E411D3E067E0054EB34 /* LLCircleView.m in Sources */,
 				89CD72631D3CC5DE00BF91CF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,6 +518,7 @@
 				89CD728D1D3CC5DE00BF91CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89CD728E1D3CC5DE00BF91CF /* Build configuration list for PBXNativeTarget "AnimationDemo1Tests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +527,7 @@
 				89CD72901D3CC5DE00BF91CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89CD72911D3CC5DE00BF91CF /* Build configuration list for PBXNativeTarget "AnimationDemo1UITests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +536,7 @@
 				89CD72931D3CC5DE00BF91CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
