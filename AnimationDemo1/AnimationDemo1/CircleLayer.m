@@ -98,6 +98,10 @@ typedef enum MovingPoint {
     //0 <= movedDistance <= 外接矩形宽度*1/6
     CGFloat movedDistance = (self.outsideRect.size.width*1/6) * fabs(self.progress-0.5)*2;//1/6也是是一个自定义的固定值,接近1/2时候,A点越靠近中点
     
+    
+    
+    
+    //-------------------------------- 计算A,B,C,D,C1,C2,C3.......C8点的位置 --------------------------------
     //外接矩形的中心点
     CGPoint rectCenter = CGPointMake(self.outsideRect.origin.x+self.outsideRect.size.width/2, self.outsideRect.origin.y+self.outsideRect.size.height/2);
     
@@ -117,7 +121,9 @@ typedef enum MovingPoint {
     CGPoint c7 = CGPointMake(pointD.x, self.movePoint == POINT_D ? pointD.y - offset+movedDistance : pointD.y- offset);
     CGPoint c8 = CGPointMake(pointA.x-offset, pointA.y);
     
-    //圆的边界(画圆)
+    
+    
+    //------------------------------- 圆的边界(画圆) -------------------------------
     UIBezierPath *ovalPath = [UIBezierPath bezierPath];
     [ovalPath moveToPoint:pointA];
     [ovalPath addCurveToPoint:pointB controlPoint1:c1 controlPoint2:c2];
@@ -125,24 +131,33 @@ typedef enum MovingPoint {
     [ovalPath addCurveToPoint:pointD controlPoint1:c5 controlPoint2:c6];
     [ovalPath addCurveToPoint:pointA controlPoint1:c7 controlPoint2:c8];
     [ovalPath closePath];
+
     
-    //外接虚线矩形
+    //------------------------------- 外接虚线矩形 -------------------------------
     UIBezierPath *rectPath = [UIBezierPath bezierPathWithRect:self.outsideRect];
-    CGContextAddPath(ctx, rectPath.CGPath); //????
-    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+    CGContextAddPath(ctx, rectPath.CGPath); //把矩形的这个路径添加到当前上下文中
+    CGContextSetStrokeColorWithColor(ctx, [UIColor greenColor].CGColor); //设置当前矩形路径下的颜色
+    
     CGContextSetLineWidth(ctx, 1.0);
-    CGFloat dash[] = {5.0,5.0};
-    CGContextSetLineDash(ctx, 0.0, dash, 2); // 每个虚线的长度
-    
+//    CGFloat dash[] = {5.0,5.0};
+//    CGContextSetLineDash(ctx, 0.0, dash, 2); // 每个虚线的长度
     CGContextStrokePath(ctx); //给线条填充颜色
-    CGContextAddPath(ctx, ovalPath.CGPath);
-    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
-    CGContextSetFillColorWithColor(ctx, [UIColor redColor].CGColor);
-    CGContextSetLineDash(ctx, 0, NULL, 0); //2
+    
+    
+    CGContextAddPath(ctx, ovalPath.CGPath);//把圆的路径添加到当前上下文中
+    CGContextSetLineWidth(ctx, 1.0);
+    
+    CGContextSetStrokeColorWithColor(ctx, [UIColor orangeColor].CGColor);
+    CGContextSetFillColorWithColor(ctx, [UIColor blueColor].CGColor);
+    
+    CGContextSetLineDash(ctx, 0, NULL, 0); //设置了这个无用,可能是为了清除上一个绘制操作时候的虚线状态,不写也没啥
+    
+    //绘制圆形  这个CGContextStrokePath(ctx);方法是可以的,也可以用CGContextDrawPath来指明绘制图形的填充颜色的方式是在fill,还是在stroke上
     CGContextDrawPath(ctx, kCGPathFillStroke); //同时给线条和线条保卫的内部区域填充颜色
+
     
     
-    //-------------- 注意: 以下所有代码全是为了辅助观察 ------
+    //------------------------------- 注意: 以下所有代码全是为了辅助观察,连接C1,C2......C8控制点  -------------------------------
     //标记出每个点,然后连线.方便观察,同时给所有的关键点染成白色,把辅助线的颜色染成白色
     CGContextSetFillColorWithColor(ctx, [UIColor yellowColor].CGColor);
     CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
@@ -183,7 +198,7 @@ typedef enum MovingPoint {
     
     CGFloat dash2[] = {2.0,2.0};
     CGContextSetLineDash(ctx, 0.0, dash2, 2);
-    CGContextStrokePath(ctx);//给辅助线条填充颜色
+    CGContextStrokePath(ctx);//仅仅是给辅助线条填充颜色
 }
 
 
@@ -193,7 +208,8 @@ typedef enum MovingPoint {
     
     for (NSValue *pointValue in points) {
         CGPoint point = [pointValue CGPointValue];
-        CGContextFillRect(ctx, CGRectMake(point.x - 2, point.y-2, 4, 4));
+        CGContextFillRect(ctx, CGRectMake(point.x - 2, point.y-2, 4, 4)); //fill
+//        CGContextStrokeRect(ctx, CGRectMake(point.x - 2, point.y-2, 4, 4));
     }
 }
 
