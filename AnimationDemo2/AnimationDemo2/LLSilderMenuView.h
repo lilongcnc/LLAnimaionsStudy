@@ -10,4 +10,8 @@
 
 @interface LLSilderMenuView : UIView
 
+- (instancetype)initWithMenuTitles:(NSArray *)titleArray;
+
+- (void)trigger;
+
 @end
