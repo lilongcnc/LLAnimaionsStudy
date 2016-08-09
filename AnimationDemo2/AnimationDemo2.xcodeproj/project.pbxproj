@@ -104,8 +104,7 @@
 		894B592B1D45EE8B0024B8E7 /* AnimationDemo2 */ = {
 			isa = PBXGroup;
 			children = (
-				894B595F1D45EEE70024B8E7 /* LLSilderMenuView.h */,
-				894B59601D45EEE70024B8E7 /* LLSilderMenuView.m */,
+				897C5C1D1D59CD7300F9B87C /* View */,
 				894B592F1D45EE8B0024B8E7 /* AppDelegate.h */,
 				894B59301D45EE8B0024B8E7 /* AppDelegate.m */,
 				894B59321D45EE8B0024B8E7 /* ViewController.h */,
@@ -143,6 +142,15 @@
 				894B59531D45EE8B0024B8E7 /* Info.plist */,
 			);
 			path = AnimationDemo2UITests;
+			sourceTree = "<group>";
+		};
+		897C5C1D1D59CD7300F9B87C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				894B595F1D45EEE70024B8E7 /* LLSilderMenuView.h */,
+				894B59601D45EEE70024B8E7 /* LLSilderMenuView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
