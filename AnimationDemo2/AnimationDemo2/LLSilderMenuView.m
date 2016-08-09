@@ -19,6 +19,9 @@ static CGFloat const EXTRAAREA = 50.f;
 @property (nonatomic,strong) UIView *helperSideView;
 @property (nonatomic,strong) UIView *helperCenterView;
 @property (nonatomic,assign) CGFloat menuButtonHeight;
+
+@property (nonatomic,strong) CADisplayLink *displayLink;
+@property (nonatomic,assign) int animationCount;
 @end
 
 @implementation LLSilderMenuView{
@@ -103,6 +106,7 @@ static CGFloat const EXTRAAREA = 50.f;
     }];
     
     //第二个辅助视图
+    [self beforeAnimation];
     [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:2.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
         
         _helperCenterView.center = _keyWindow.center;
@@ -110,7 +114,7 @@ static CGFloat const EXTRAAREA = 50.f;
     } completion:^(BOOL finished) {
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapToUntrigger:)];
         [_blurView addGestureRecognizer:tapGes];
-
+        [self finishAnimation];
     }];
 }
 
@@ -150,9 +154,41 @@ static CGFloat const EXTRAAREA = 50.f;
 }
 
 
+#pragma mark ================ CADisplayer定时器 ================
+- (void)beforeAnimation{
+    if (!self.displayLink) {
+        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkAction:)];
+        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    }
+    self.animationCount++;
+}
+
+- (void)finishAnimation{
+    self.animationCount--;
+    if (self.animationCount == 0) {
+        [self.displayLink invalidate];
+        self.displayLink = nil;
+    }
+}
+
+//计算diff
+- (void)displayLinkAction:(CADisplayLink *)dis{
+    
+    //获取到动态变化时候的 helperSideView & helperCenterView 的frame变化(原文中提到:“我在 后面 提到了 Presentation Layer 的作用 —— 即可以实时获取 Layer 属性的当前值”)
+    CALayer *sideHelperPresentationLayer = (CALayer *)[_helperSideView.layer presentationLayer];
+    CALayer *centerHelperPresentationLayer = (CALayer *)[_helperCenterView.layer presentationLayer];
+    
+    CGRect sideRect = [[sideHelperPresentationLayer valueForKeyPath:@"frame"] CGRectValue];
+    CGRect centerRect = [[centerHelperPresentationLayer valueForKeyPath:@"frame"] CGRectValue];
+    
+    
+    diff = sideRect.origin.x - centerRect.origin.x;
+    
+    [self setNeedsDisplay];//（ 这个方法会触发 UIView 的 drawRect  或 CALayer 的 drawRectInContext ）”
+}
 
 
-
+//绘制菜单动态矩形区域
 - (void)drawRect:(CGRect)rect {
     
     UIBezierPath *path = [UIBezierPath bezierPath];
