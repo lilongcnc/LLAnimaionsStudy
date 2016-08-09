@@ -10,7 +10,6 @@
 
 
 static CGFloat const EXTRAAREA = 50.f;
-static const CGFloat EXTRAAREA2 = 50.f;
 
 
 
@@ -25,6 +24,7 @@ static const CGFloat EXTRAAREA2 = 50.f;
 @implementation LLSilderMenuView{
     UIWindow *_keyWindow;
     UIColor *_menuColor;
+    CGFloat diff; //控制器的位移
 }
 
 
@@ -103,7 +103,7 @@ static const CGFloat EXTRAAREA2 = 50.f;
     }];
     
     //第二个辅助视图
-    [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.8f initialSpringVelocity:2.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
+    [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:2.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
         
         _helperCenterView.center = _keyWindow.center;
         
@@ -154,6 +154,20 @@ static const CGFloat EXTRAAREA2 = 50.f;
 
 
 - (void)drawRect:(CGRect)rect {
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0,0)];
+    [path addLineToPoint:(CGPoint){_keyWindow.frame.size.width*0.5,0}];
+    [path addQuadCurveToPoint:(CGPoint){_keyWindow.frame.size.width*0.5,_keyWindow.frame.size.height} controlPoint:(CGPoint){_keyWindow.frame.size.width*0.5+diff,_keyWindow.frame.size.height*0.5}];
+    
+    [path addLineToPoint:(CGPoint){0,_keyWindow.frame.size.height}];
+    [path closePath];
+    
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextAddPath(ctx, path.CGPath);
+    [_menuColor set];
+    CGContextFillPath(ctx);
 }
 
 @end
