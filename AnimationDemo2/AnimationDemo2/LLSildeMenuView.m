@@ -102,7 +102,8 @@ static CGFloat const SPACE = 30.f;
         }];
         
         //第一个辅助视图
-        [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:0.9f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
+        //改改usingSpringWithDamping:这个参数,弹性就完全不一样啦,哈哈
+        [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.5f initialSpringVelocity:0.9f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
             
             _helperSideView.center = CGPointMake(_keyWindow.center.x, _helperSideView.frame.size.height*0.5);
             
