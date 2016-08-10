@@ -31,8 +31,9 @@
 
 -(void)drawRect:(CGRect)rect{
     
+    //创建画笔
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextAddRect(ctx, rect);
+    CGContextAddRect(ctx, rect);//一个简便方法,直接添加一个矩形到一个路径
     //+++ 貌似这两句加上没什么好用啊 +++
     [self.buttonColor set];
     CGContextFillPath(ctx);
@@ -40,8 +41,8 @@
     
     
     //画矩形轮廓
-    UIBezierPath *roundedRectangPath = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(rect, 1,1) cornerRadius:rect.size.height*0.5];
-    [self.buttonColor setFill];
+    UIBezierPath *roundedRectangPath = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(rect, 0.5,0.5) cornerRadius:rect.size.height*0.5];//CGRectInset(rect, 0.5,0.5)
+//    [self.buttonColor setFill];
     [roundedRectangPath fill];
     [[UIColor whiteColor] setStroke];
     roundedRectangPath.lineWidth = 1;

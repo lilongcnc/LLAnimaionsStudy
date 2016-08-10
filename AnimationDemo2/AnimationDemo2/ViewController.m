@@ -48,8 +48,7 @@
     [button setTitleColor:[UIColor redColor] forState:0];
     [button addTarget:self action:@selector(btnOnClick1:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    
-    
+
 }
 
 

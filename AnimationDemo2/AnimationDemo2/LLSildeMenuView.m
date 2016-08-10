@@ -30,6 +30,7 @@ static CGFloat const SPACE = 30.f;
     UIWindow *_keyWindow;
     UIColor *_menuColor;
     CGFloat diff; //控制器的位移
+    BOOL triggered;
 }
 
 
@@ -93,38 +94,48 @@ static CGFloat const SPACE = 30.f;
 #pragma mark ================ 弹出视图 ================
 - (void)trigger{
     
-    [_keyWindow insertSubview:_blurView belowSubview:self];
-    
-    [UIView animateWithDuration:0.3f animations:^{
-        self.frame = self.bounds;
-    }];
-    
-    //第一个辅助视图
-    [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:0.9f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
+    if (!triggered) {
+        [_keyWindow insertSubview:_blurView belowSubview:self];
         
-        _helperSideView.center = CGPointMake(_keyWindow.center.x, _helperSideView.frame.size.height*0.5);
+        [UIView animateWithDuration:0.3f animations:^{
+            self.frame = self.bounds;
+        }];
         
-    } completion:^(BOOL finished) {
+        //第一个辅助视图
+        [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:0.9f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
+            
+            _helperSideView.center = CGPointMake(_keyWindow.center.x, _helperSideView.frame.size.height*0.5);
+            
+        } completion:^(BOOL finished) {
+            
+        }];
         
-    }];
-    
-    
-    //蒙版视图
-    [UIView animateWithDuration:0.3f animations:^{
-        _blurView.alpha = 0.8f;
-    }];
-    
-    //第二个辅助视图
-    [self beforeAnimation];
-    [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:2.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
         
-        _helperCenterView.center = _keyWindow.center;
+        //蒙版视图
+        [UIView animateWithDuration:0.3f animations:^{
+            _blurView.alpha = 0.8f;
+        }];
         
-    } completion:^(BOOL finished) {
-        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapToUntrigger:)];
-        [_blurView addGestureRecognizer:tapGes];
-        [self finishAnimation];
-    }];
+        //第二个辅助视图
+        [self beforeAnimation];
+        [UIView animateWithDuration:0.7f delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:2.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^{
+            
+            _helperCenterView.center = _keyWindow.center;
+            
+        } completion:^(BOOL finished) {
+            UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapToUntrigger:)];
+            [_blurView addGestureRecognizer:tapGes];
+            [self finishAnimation];
+        }];
+        
+        //按钮动画
+       [self animateButtons];
+      
+        triggered = YES;
+        
+    }else{
+        [self tapToUntrigger:nil];
+    }
 }
 
 #pragma mark ================ 返回视图 ================
@@ -158,7 +169,7 @@ static CGFloat const SPACE = 30.f;
     }];
     
     
-    
+    triggered = NO;
     
 }
 
@@ -201,10 +212,13 @@ static CGFloat const SPACE = 30.f;
 - (void)drawRect:(CGRect)rect {
     
     UIBezierPath *path = [UIBezierPath bezierPath];
+    //点A
     [path moveToPoint:CGPointMake(0,0)];
+    //点B
     [path addLineToPoint:(CGPoint){_keyWindow.frame.size.width*0.5,0}];
+    //点C(BC段)
     [path addQuadCurveToPoint:(CGPoint){_keyWindow.frame.size.width*0.5,_keyWindow.frame.size.height} controlPoint:(CGPoint){_keyWindow.frame.size.width*0.5+diff,_keyWindow.frame.size.height*0.5}];
-    
+    //点D
     [path addLineToPoint:(CGPoint){0,_keyWindow.frame.size.height}];
     [path closePath];
     
@@ -215,6 +229,24 @@ static CGFloat const SPACE = 30.f;
     CGContextFillPath(ctx);
 }
 
+
+
+
+
+#pragma mark ================ 按钮部分 ================
+-(void)animateButtons{
+    
+    for (NSInteger i = 0; i < self.subviews.count; i++) {
+        UIView *menuButton = self.subviews[i];
+        menuButton.transform = CGAffineTransformMakeTranslation(-90, 0);
+        
+        [UIView animateWithDuration:0.7 delay:i*(0.3/self.subviews.count) usingSpringWithDamping:0.6f initialSpringVelocity:0.0f options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction animations:^{
+            
+            menuButton.transform =  CGAffineTransformIdentity;//设置量进行还原
+            
+        } completion:NULL];
+    }
+}
 
 
 - (void)addButtons:(NSArray *)titleArry{
