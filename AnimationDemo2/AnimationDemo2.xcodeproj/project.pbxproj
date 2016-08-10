@@ -15,7 +15,8 @@
 		894B593C1D45EE8B0024B8E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 894B593A1D45EE8B0024B8E7 /* LaunchScreen.storyboard */; };
 		894B59471D45EE8B0024B8E7 /* AnimationDemo2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B59461D45EE8B0024B8E7 /* AnimationDemo2Tests.m */; };
 		894B59521D45EE8B0024B8E7 /* AnimationDemo2UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B59511D45EE8B0024B8E7 /* AnimationDemo2UITests.m */; };
-		894B59611D45EEE70024B8E7 /* LLSilderMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B59601D45EEE70024B8E7 /* LLSilderMenuView.m */; };
+		894B59611D45EEE70024B8E7 /* LLSildeMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894B59601D45EEE70024B8E7 /* LLSildeMenuView.m */; };
+		895EDB8D1D5AC86100F84194 /* LLSildeMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 895EDB8C1D5AC86100F84194 /* LLSildeMenuButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +53,10 @@
 		894B594D1D45EE8B0024B8E7 /* AnimationDemo2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimationDemo2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		894B59511D45EE8B0024B8E7 /* AnimationDemo2UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationDemo2UITests.m; sourceTree = "<group>"; };
 		894B59531D45EE8B0024B8E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		894B595F1D45EEE70024B8E7 /* LLSilderMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSilderMenuView.h; sourceTree = "<group>"; };
-		894B59601D45EEE70024B8E7 /* LLSilderMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSilderMenuView.m; sourceTree = "<group>"; };
+		894B595F1D45EEE70024B8E7 /* LLSildeMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSildeMenuView.h; sourceTree = "<group>"; };
+		894B59601D45EEE70024B8E7 /* LLSildeMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSildeMenuView.m; sourceTree = "<group>"; };
+		895EDB8B1D5AC86100F84194 /* LLSildeMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSildeMenuButton.h; sourceTree = "<group>"; };
+		895EDB8C1D5AC86100F84194 /* LLSildeMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSildeMenuButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,8 +150,10 @@
 		897C5C1D1D59CD7300F9B87C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				894B595F1D45EEE70024B8E7 /* LLSilderMenuView.h */,
-				894B59601D45EEE70024B8E7 /* LLSilderMenuView.m */,
+				894B595F1D45EEE70024B8E7 /* LLSildeMenuView.h */,
+				894B59601D45EEE70024B8E7 /* LLSildeMenuView.m */,
+				895EDB8B1D5AC86100F84194 /* LLSildeMenuButton.h */,
+				895EDB8C1D5AC86100F84194 /* LLSildeMenuButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -283,7 +288,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				894B59611D45EEE70024B8E7 /* LLSilderMenuView.m in Sources */,
+				894B59611D45EEE70024B8E7 /* LLSildeMenuView.m in Sources */,
+				895EDB8D1D5AC86100F84194 /* LLSildeMenuButton.m in Sources */,
 				894B59341D45EE8B0024B8E7 /* ViewController.m in Sources */,
 				894B59311D45EE8B0024B8E7 /* AppDelegate.m in Sources */,
 				894B592E1D45EE8B0024B8E7 /* main.m in Sources */,

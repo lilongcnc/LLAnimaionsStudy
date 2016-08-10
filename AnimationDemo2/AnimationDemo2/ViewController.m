@@ -7,11 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "LLSilderMenuView.h"
+#import "LLSildeMenuView.h"
 
 @interface ViewController ()
 
-@property (nonatomic,strong) LLSilderMenuView *silderMenuView;
+@property (nonatomic,strong) LLSildeMenuView *silderMenuView;
 
 @end
 
@@ -32,13 +32,13 @@
     
     _silderMenuView = ({
     
-         LLSilderMenuView *silderView = [[LLSilderMenuView alloc] initWithMenuTitles:@[@"首页",@"消息",@"发布",@"个人",@"设置"]];
-         
-//        silderView.frame = CGRectMake(-keyWindow.frame.size.width/2-EXTRAAREA, 0, keyWindow.frame.size.width/2+EXTRAAREA, keyWindow.frame.size.height);
-//        silderView.backgroundColor = [UIColor blueColor];
-//        [keyWindow insertSubview:silderView aboveSubview:self.view];
-        silderView;
+         LLSildeMenuView *silderView = [[LLSildeMenuView alloc] initWithMenuTitles:@[@"首页",@"消息",@"发布",@"个人",@"设置"]];
+         silderView.menuOnClickBlock = ^(NSInteger index,NSString *title,NSInteger titleCounts){
     
+            NSLog(@"index:%ld title:%@ titleCounts:%ld",index,title,titleCounts);
+        };
+         
+         silderView;
     });
     
     

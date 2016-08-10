@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLSilderMenuView : UIView
+
+typedef void(^MenuButtonOnClickBlock) (NSInteger index,NSString *title,NSInteger titleCounts);
+
+@interface LLSildeMenuView : UIView
 
 - (instancetype)initWithMenuTitles:(NSArray *)titleArray;
 
 - (void)trigger;
+
+@property (nonatomic,copy) MenuButtonOnClickBlock menuOnClickBlock;
 
 @end

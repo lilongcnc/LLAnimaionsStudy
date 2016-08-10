@@ -6,14 +6,16 @@
 //  Copyright © 2016年 李龙. All rights reserved.
 //
 
-#import "LLSilderMenuView.h"
+#import "LLSildeMenuView.h"
+#import "LLSildeMenuButton.h"
 
 
 static CGFloat const EXTRAAREA = 50.f;
+static CGFloat const SPACE = 30.f;
 
 
 
-@interface LLSilderMenuView ()
+@interface LLSildeMenuView ()
 
 @property (nonatomic,strong) UIVisualEffectView *blurView;
 @property (nonatomic,strong) UIView *helperSideView;
@@ -24,7 +26,7 @@ static CGFloat const EXTRAAREA = 50.f;
 @property (nonatomic,assign) int animationCount;
 @end
 
-@implementation LLSilderMenuView{
+@implementation LLSildeMenuView{
     UIWindow *_keyWindow;
     UIColor *_menuColor;
     CGFloat diff; //控制器的位移
@@ -32,7 +34,7 @@ static CGFloat const EXTRAAREA = 50.f;
 
 
 - (instancetype)initWithMenuTitles:(NSArray *)titleArray{
-    return [self initWithTitle:titleArray withButtonsheight:40 withMenuColor:[UIColor cyanColor] withBackBlurStyle:UIBlurEffectStyleDark];
+    return [self initWithTitle:titleArray withButtonsheight:40 withMenuColor:[UIColor colorWithRed:0 green:0.722 blue:1 alpha:1] withBackBlurStyle:UIBlurEffectStyleDark];
 }
 
 
@@ -54,6 +56,7 @@ static CGFloat const EXTRAAREA = 50.f;
         _helperSideView = ({
             UIView *sideView = [[UIView alloc] initWithFrame:CGRectMake(-40, 0, 40, 40)];
             sideView.backgroundColor = [UIColor greenColor];
+            sideView.hidden = YES;
             [_keyWindow addSubview:sideView];
             sideView;
         });
@@ -62,6 +65,7 @@ static CGFloat const EXTRAAREA = 50.f;
         _helperCenterView = ({
             UIView *centerView = [[UIView alloc] initWithFrame:(CGRect){-40,CGRectGetHeight(_keyWindow.frame)*0.5-20,40,40}];
             centerView.backgroundColor = [UIColor yellowColor];
+            centerView.hidden = YES;
             [_keyWindow addSubview:centerView];
             centerView;
         });
@@ -69,12 +73,17 @@ static CGFloat const EXTRAAREA = 50.f;
         
         self.frame = CGRectMake(-_keyWindow.frame.size.width/2 - EXTRAAREA, 0, _keyWindow.frame.size.width/2+EXTRAAREA, _keyWindow.frame.size.height);
         self.backgroundColor = [UIColor clearColor];
-        self.backgroundColor = [UIColor redColor];
+//        self.backgroundColor = [UIColor redColor];
         [_keyWindow insertSubview:self belowSubview:_helperSideView];
         
         
         _menuColor = menuColor;
         self.menuButtonHeight = height;
+        
+        
+        
+        //添加菜单按钮
+        [self addButtons:titles];
     }
     
     return self;
@@ -102,7 +111,7 @@ static CGFloat const EXTRAAREA = 50.f;
     
     //蒙版视图
     [UIView animateWithDuration:0.3f animations:^{
-        _blurView.alpha = 0.6f;
+        _blurView.alpha = 0.8f;
     }];
     
     //第二个辅助视图
@@ -204,6 +213,71 @@ static CGFloat const EXTRAAREA = 50.f;
     CGContextAddPath(ctx, path.CGPath);
     [_menuColor set];
     CGContextFillPath(ctx);
+}
+
+
+
+- (void)addButtons:(NSArray *)titleArry{
+    
+    if (titleArry.count %2 == 0) {
+        NSInteger index_down = titleArry.count/2;
+        NSInteger index_up = -1;
+        for (NSInteger i = 0; i<titleArry.count; i++) {
+            
+            NSString *title = titleArry[i];
+            LLSildeMenuButton *home_button = [[LLSildeMenuButton alloc] initWithTitle:title];
+            
+            
+            // 从中间向向下两边依次添加按钮
+            if (i >= titleArry.count / 2) {
+                
+                index_up ++;
+                home_button.center = CGPointMake(_keyWindow.frame.size.width/4, _keyWindow.frame.size.height/2 + self.menuButtonHeight*index_up + SPACE*index_up + SPACE/2 + self.menuButtonHeight/2);
+            }else{
+                
+                index_down --;
+                home_button.center = CGPointMake(_keyWindow.frame.size.width/4, _keyWindow.frame.size.height/2 - self.menuButtonHeight*index_down - SPACE*index_down - SPACE/2 - self.menuButtonHeight/2);
+            }
+            
+            home_button.bounds = CGRectMake(0, 0, _keyWindow.frame.size.width/2 - 20*2, self.menuButtonHeight);
+            home_button.buttonColor = _menuColor;
+            [self addSubview:home_button];
+            
+            __weak typeof(self) WeakSelf = self;
+            
+            home_button.buttonOnClickBlock = ^(){
+                
+                [WeakSelf tapToUntrigger:nil];
+                WeakSelf.menuOnClickBlock(i,title,titleArry.count);
+            };
+            
+            
+        }
+        
+    }else{
+        
+        NSInteger index = (titleArry.count - 1) /2 +1;
+        for (NSInteger i = 0; i < titleArry.count; i++) {
+            
+            index --;
+            NSString *title = titleArry[i];
+            LLSildeMenuButton *home_button = [[LLSildeMenuButton alloc] initWithTitle:title];
+            home_button.center = CGPointMake(_keyWindow.frame.size.width/4, _keyWindow.frame.size.height/2 - self.menuButtonHeight*index - 20*index);
+            home_button.bounds = CGRectMake(0, 0, _keyWindow.frame.size.width/2 - 20*2, self.menuButtonHeight);
+            home_button.buttonColor = _menuColor;
+            [self addSubview:home_button];
+            
+            __weak typeof(self) WeakSelf = self;
+            home_button.buttonOnClickBlock = ^(){
+                
+                [WeakSelf tapToUntrigger:nil];
+                WeakSelf.menuOnClickBlock(i,title,titleArry.count);
+            };
+            
+        }
+    }
+    
+    
 }
 
 @end
