@@ -9,6 +9,7 @@
 //
 
 #import "LLPaoPaoView.h"
+#import "QQMessagePaoPao-swift.h"
 
 @implementation LLPaoPaoView{
     CGFloat x1;
@@ -79,7 +80,8 @@
     backView = [[UIView alloc] initWithFrame:self.frontView.frame];
     r1 = backView.frame.size.width / 2;
     backView.layer.cornerRadius = r1;
-    backView.backgroundColor = self.bubbleColor;
+//    backView.backgroundColor = self.bubbleColor;
+    backView.backgroundColor = [UIColor greenColor];
     
     //数字文字
     self.bubbleLabel = [[UILabel alloc] init];
@@ -95,7 +97,7 @@
     
     x1 = backView.center.x;
     y1 = backView.center.y;
-    x2= self.frontView.center.x;
+    x2 = self.frontView.center.x;
     y2 = self.frontView.center.y;
     
     pointA = CGPointMake(x1 - r1, y1);
@@ -110,7 +112,7 @@
     origionBackViewCenter = backView.center;
     
     backView.hidden = YES; //为了看到frontView的气泡晃动效果,需要展示隐藏backView
-//    []//气泡晃动
+//    []//气泡晃动动画效果
     
     //增加拖拽手势
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDragGesture:)];
@@ -118,6 +120,7 @@
     
 }
 
+static CGFloat const removeCompareValue = 6;
 - (void)handleDragGesture:(UIPanGestureRecognizer *)ges{
     CGPoint dragPoint = [ges locationInView:self.containerView];
     
@@ -126,16 +129,64 @@
         fillColorForCute = self.bubbleColor;
         
     }else if(ges.state == UIGestureRecognizerStateChanged){
+        //forontView根据point移动
         self.frontView.center = dragPoint;
         
-        
-        if (r1 <=6 ) {//这个是为了?????
+        if (r1 <= removeCompareValue ) {//通过backView的半径来判断,我们拖拽的动画移动了多远.从而销毁气泡
+            NSLog(@"销毁气泡");
             fillColorForCute = [UIColor clearColor];
             backView.hidden = YES;
-            [shapeLayer removeFromSuperlayer];//????????????
+            [shapeLayer removeFromSuperlayer];//销毁气泡所在的图层
         }
         
         [self displayLinkAction];
+        
+    }else if(ges.state == UIGestureRecognizerStateEnded || ges.state == UIGestureRecognizerStateCancelled || ges.state == UIGestureRecognizerStateFailed){
+        
+        if (r1 <= removeCompareValue) {
+            [self.frontView boom]; //swift方法,销毁气泡
+            
+            [UIView animateWithDuration:3.0F animations:^{
+                
+                if(self.backgroundColor == [UIColor whiteColor]){
+                    
+                    self.backgroundColor = [UIColor blackColor];
+                    
+                }else{
+                    self.backgroundColor = [UIColor whiteColor];
+                }
+                
+            } completion:^(BOOL finished) {
+                if (finished) {
+                    
+                    //重新创建了气泡
+                    [self.frontView reset];//不透明度
+                    
+                    backView.hidden = YES;
+                    fillColorForCute = [UIColor clearColor];
+                    [shapeLayer removeFromSuperlayer];
+                    
+                    self.frontView.center = origionBackViewCenter;
+                    
+//                    [self AddAnimationLikegameCnterBubble];
+                }
+            }];
+            
+        }else{
+            //为了晃动做准备
+            backView.hidden = YES;
+            fillColorForCute = [UIColor clearColor];
+            [shapeLayer removeFromSuperlayer];
+            
+            //复位
+            [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.4f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                
+                self.frontView.center = origionBackViewCenter; //归为
+                
+            } completion:^(BOOL finished) {
+//                [self AddAniamtionLikeGameCenterBubble];
+            }];
+        }
     }
     
 }
@@ -157,7 +208,7 @@
         sinDigree = (x2-x1)/centerDistance;
     }
     
-    r1 = origionBackViewFrame.size.width / 2 - centerDistance/self.viscosity;
+    r1 = origionBackViewFrame.size.width / 2 - centerDistance/self.viscosity;//重新计算backView的半径
     
     pointA = CGPointMake(x1-r1*cosDigree, y1+r1*sinDigree);  // A
     pointB = CGPointMake(x1+r1*cosDigree, y1-r1*sinDigree); // B
@@ -176,7 +227,7 @@
     backView.bounds = CGRectMake(0, 0, r1*2, r1*2);
     backView.layer.cornerRadius = r1;
     
-    //拖拽的曲线
+    //拖拽的曲线部分
     cutePath = [UIBezierPath bezierPath];
     [cutePath moveToPoint:pointA];
     [cutePath addQuadCurveToPoint:pointD controlPoint:pointO];
@@ -185,7 +236,7 @@
     [cutePath moveToPoint:pointA];
     
     if (backView.hidden == NO) {
-        //???????
+        //把拖拽的曲线路径添加到containerView中
         shapeLayer.path = [cutePath CGPath];
         shapeLayer.fillColor = [fillColorForCute CGColor];
         [self.containerView.layer insertSublayer:shapeLayer below:self.frontView.layer];

@@ -16,6 +16,7 @@
 		899CB4C41D616EB500BF074E /* QQMessagePaoPaoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 899CB4C31D616EB500BF074E /* QQMessagePaoPaoTests.m */; };
 		899CB4CF1D616EB500BF074E /* QQMessagePaoPaoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 899CB4CE1D616EB500BF074E /* QQMessagePaoPaoUITests.m */; };
 		899CB4DF1D616EFA00BF074E /* LLPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 899CB4DE1D616EFA00BF074E /* LLPaoPaoView.m */; };
+		899CB4E21D61B78E00BF074E /* UIViewWSBoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899CB4E11D61B78E00BF074E /* UIViewWSBoom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		899CB4D01D616EB500BF074E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		899CB4DD1D616EFA00BF074E /* LLPaoPaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLPaoPaoView.h; sourceTree = "<group>"; };
 		899CB4DE1D616EFA00BF074E /* LLPaoPaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLPaoPaoView.m; sourceTree = "<group>"; };
+		899CB4E01D61B78E00BF074E /* QQMessagePaoPao-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QQMessagePaoPao-Bridging-Header.h"; sourceTree = "<group>"; };
+		899CB4E11D61B78E00BF074E /* UIViewWSBoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewWSBoom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +112,9 @@
 				899CB4B01D616EB400BF074E /* ViewController.m */,
 				899CB4DD1D616EFA00BF074E /* LLPaoPaoView.h */,
 				899CB4DE1D616EFA00BF074E /* LLPaoPaoView.m */,
+				899CB4E11D61B78E00BF074E /* UIViewWSBoom.swift */,
 				899CB4A91D616EB400BF074E /* Supporting Files */,
+				899CB4E01D61B78E00BF074E /* QQMessagePaoPao-Bridging-Header.h */,
 			);
 			path = QQMessagePaoPao;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 				899CB4B11D616EB400BF074E /* ViewController.m in Sources */,
 				899CB4AE1D616EB400BF074E /* AppDelegate.m in Sources */,
 				899CB4AB1D616EB400BF074E /* main.m in Sources */,
+				899CB4E21D61B78E00BF074E /* UIViewWSBoom.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,10 +435,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = QQMessagePaoPao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lauren.QQMessagePaoPao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "QQMessagePaoPao/QQMessagePaoPao-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -440,10 +449,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = QQMessagePaoPao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lauren.QQMessagePaoPao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "QQMessagePaoPao/QQMessagePaoPao-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -512,6 +523,7 @@
 				899CB4D51D616EB500BF074E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		899CB4D61D616EB500BF074E /* Build configuration list for PBXNativeTarget "QQMessagePaoPaoTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +532,7 @@
 				899CB4D81D616EB500BF074E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		899CB4D91D616EB500BF074E /* Build configuration list for PBXNativeTarget "QQMessagePaoPaoUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +541,7 @@
 				899CB4DB1D616EB500BF074E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
