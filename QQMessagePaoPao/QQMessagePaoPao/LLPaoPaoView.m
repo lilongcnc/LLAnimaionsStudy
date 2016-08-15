@@ -112,7 +112,7 @@
     origionBackViewCenter = backView.center;
     
     backView.hidden = YES; //为了看到frontView的气泡晃动效果,需要展示隐藏backView
-//    []//气泡晃动动画效果
+    [self AddAniamtionLikeGameCenterBubble];//气泡晃动动画效果
     
     //增加拖拽手势
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDragGesture:)];
