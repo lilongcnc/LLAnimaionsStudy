@@ -125,10 +125,13 @@ static CGFloat const removeCompareValue = 6;
     CGPoint dragPoint = [ges locationInView:self.containerView];
     
     if (ges.state == UIGestureRecognizerStateBegan){
+        
         backView.hidden = NO;
         fillColorForCute = self.bubbleColor;
+        [self RemoveAniamtionLikeGameCenterBubble];
         
     }else if(ges.state == UIGestureRecognizerStateChanged){
+        
         //forontView根据point移动
         self.frontView.center = dragPoint;
         
@@ -168,7 +171,7 @@ static CGFloat const removeCompareValue = 6;
                     
                     self.frontView.center = origionBackViewCenter;
                     
-//                    [self AddAnimationLikegameCnterBubble];
+                    [self AddAniamtionLikeGameCenterBubble];
                 }
             }];
             
@@ -184,7 +187,7 @@ static CGFloat const removeCompareValue = 6;
                 self.frontView.center = origionBackViewCenter; //归为
                 
             } completion:^(BOOL finished) {
-//                [self AddAniamtionLikeGameCenterBubble];
+                [self AddAniamtionLikeGameCenterBubble];
             }];
         }
     }
@@ -245,5 +248,53 @@ static CGFloat const removeCompareValue = 6;
 }
 
 
+- (void)AddAniamtionLikeGameCenterBubble{
+    
+    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    pathAnimation.calculationMode = kCAAnimationPaced;
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.removedOnCompletion = NO;
+    pathAnimation.repeatCount = INFINITY;
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    pathAnimation.duration = 5.0;
+    
+    CGMutablePathRef curvedPath = CGPathCreateMutable();
+    CGRect circleContainer = CGRectInset(
+                                         self.frontView.frame, self.frontView.bounds.size.width / 2 - 3,
+                                         self.frontView.bounds.size.width / 2 - 3);
+    CGPathAddEllipseInRect(curvedPath, NULL, circleContainer);
+    
+    pathAnimation.path = curvedPath;
+    CGPathRelease(curvedPath);
+    [self.frontView.layer addAnimation:pathAnimation forKey:@"myCircleAnimation"];
+    
+    CAKeyframeAnimation *scaleX =
+    [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.x"];
+    scaleX.duration = 1;
+    scaleX.values = @[ @1.0, @1.1, @1.0 ];
+    scaleX.keyTimes = @[ @0.0, @0.5, @1.0 ];
+    scaleX.repeatCount = INFINITY;
+    scaleX.autoreverses = YES;
+    
+    scaleX.timingFunction = [CAMediaTimingFunction
+                             functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [self.frontView.layer addAnimation:scaleX forKey:@"scaleXAnimation"];
+    
+    CAKeyframeAnimation *scaleY =
+    [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.y"];
+    scaleY.duration = 1.5;
+    scaleY.values = @[ @1.0, @1.1, @1.0 ];
+    scaleY.keyTimes = @[ @0.0, @0.5, @1.0 ];
+    scaleY.repeatCount = INFINITY;
+    scaleY.autoreverses = YES;
+    scaleX.timingFunction = [CAMediaTimingFunction
+                             functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [self.frontView.layer addAnimation:scaleY forKey:@"scaleYAnimation"];
+    
+}
+
+- (void)RemoveAniamtionLikeGameCenterBubble {
+    [self.frontView.layer removeAllAnimations];
+}
 
 @end
