@@ -17,6 +17,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    /**
+     *  “ mask 一开始就存在，所以你可以在程序启动时就能透过 mask 看到后面的视图。”
+     
+     *                                     ------- 摘录来自: 杨骑滔（KittenYang）. “A GUIDE TO IOS ANIMATION”。 iBooks.
+     */
+    
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor colorWithRed:0.408 green:0.743 blue:0.997 alpha:1];
     
@@ -39,7 +45,7 @@
     
     
     //logo mask 的放大动画
-    CAKeyframeAnimation *logoMaskAnimation  = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
+    CAKeyframeAnimation *logoMaskAnimation  = [CAKeyframeAnimation animationWithKeyPath:@"bounds"]; //animationWithKeyPath:@"bounds":指定layer的size发生动画
     logoMaskAnimation.duration = 1.0f;
     logoMaskAnimation.beginTime = CACurrentMediaTime() + 1.0f;//延迟一秒
     
@@ -87,11 +93,16 @@
 
         } completion:^(BOOL finished) {
 
-            navc.view.layer.mask = nil; //遮罩消失
+            navc.view.layer.mask = nil; //遮罩清楚
 
         }];
         
     }];
+    
+    
+    //在动画中,可以看到当放大动画的时候有一个图片蓝色的部分停留,这里我们有两个解决的办法,第一个是navc.view.layer.mask = nil这句代码往前提.  第二个是换一张中间完全镂空的,类似于杨骑滔给的五角星的中间不镂空的图片
+    
+
     
     
     return YES;
