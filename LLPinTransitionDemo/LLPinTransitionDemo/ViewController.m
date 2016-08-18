@@ -18,6 +18,14 @@
     [super viewDidLoad];
     
     
+    //logo mask 添加一个遮罩,图片透明和不透明的地方反转
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+//
+//    maskLayer.path
+//    functionWithName:kCAMediaTimingFunctionEaseInEaseOut
+
+    CALayer *maskLayer = [CAShapeLayer layer];
+    
     
 }
 
